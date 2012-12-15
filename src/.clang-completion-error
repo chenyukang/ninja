@@ -1,0 +1,4 @@
+/Users/kang/code/ninja/src/lexer_test.cc:17:10: fatal error: 'gtest/gtest.h' file not found
+#include <gtest/gtest.h>
+         ^
+1 error generated.
