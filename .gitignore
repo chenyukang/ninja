@@ -4,7 +4,6 @@
 *.ilk
 TAGS
 /build
-/build.ninja
 /ninja
 /build_log_perftest
 /canon_perftest
