@@ -16,7 +16,7 @@ TAGS
 /gtest-1.6.0
 /gtest/.ninja_log
 *.gch
-
+/src/.clang-completion-error
 # Eclipse project files
 .project
 .cproject
