@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include "util.h"
+#include <assert.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -102,6 +103,11 @@ bool CanonicalizePath(char* path, size_t* len, string* err) {
     *err = "empty path";
     return false;
   }
+
+  if(strcmp(path, "./bitmap.c") == 0) {
+      printf("now : %s\n", path);
+  }
+  
 
   const int kMaxPathComponents = 30;
   char* components[kMaxPathComponents];
@@ -353,4 +359,40 @@ string ElideMiddle(const string& str, size_t width) {
       + result.substr(result.size() - elide_size, elide_size);
   }
   return result;
+}
+
+string Skip_begin_space(const string& str) {
+    string res;
+    if(str.size() == 0)
+        return res;
+    if(str[0] != ' ' &&
+       str[0] != '\t')
+    {
+        res = str;
+        return res;
+    }
+    
+    for(size_t i = 0; i<str.size(); i++) {
+        if(str[i] == ' ' ||
+           str[i] == '\t')
+            continue;
+        else {
+            res = str.substr(i, str.size() - i);
+            break;
+        }
+    }
+    return res;
+}
+
+
+int Have_main_func(const string& str) {
+    size_t pos = str.find("main");
+    if(pos != string::npos) {
+        string left_part = str.substr(pos+4, str.size()-(pos+4));
+        left_part = Skip_begin_space(left_part);
+        if(left_part[0] == '(' && left_part.find(";") == string::npos)
+            return 1;
+        
+    }
+    return 0;
 }

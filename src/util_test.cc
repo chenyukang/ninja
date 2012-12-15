@@ -31,6 +31,11 @@ TEST(CanonicalizePath, PathSamples) {
   EXPECT_TRUE(CanonicalizePath(&path, &err));
   EXPECT_EQ("foo.h", path);
 
+  path = "./bitmap.c";
+  EXPECT_TRUE(CanonicalizePath(&path, &err));
+  EXPECT_EQ("bitmap.c", path);
+
+
   path = "./foo/./bar.h";
   EXPECT_TRUE(CanonicalizePath(&path, &err));
   EXPECT_EQ("foo/bar.h", path);
@@ -162,4 +167,17 @@ TEST(ElideMiddle, ElideInTheMiddle) {
   string input = "01234567890123456789";
   string elided = ElideMiddle(input, 10);
   EXPECT_EQ("012...789", elided);
+}
+
+TEST(Skip_begin_space, Skip_space) {
+    string input = "  abc";
+    string res   = Skip_begin_space(input);
+    EXPECT_EQ("abc", res);
+    input = "\tabc";
+    res = Skip_begin_space(input);
+    EXPECT_EQ("abc", res);
+    input = "\t   123";
+    res = Skip_begin_space(input);
+    EXPECT_EQ("123", res);
+        
 }

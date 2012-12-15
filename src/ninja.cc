@@ -41,6 +41,7 @@
 #include "metrics.h"
 #include "state.h"
 #include "util.h"
+#include "loadconfig.h"
 
 // Defined in msvc_helper_main-win32.cc.
 int MSVCHelperMain(int argc, char** argv);
@@ -111,6 +112,7 @@ void Usage(const BuildConfig& config) {
 "\n"
 "  -j N     run N jobs in parallel [default=%d]\n"
 "  -l N     do not start new jobs if the load average is greater than N\n"
+"  -config  give me a config file by default\n"          
 #ifdef _WIN32
 "           (not yet implemented on Windows)\n"
 #endif
@@ -531,6 +533,14 @@ int ToolUrtle(Globals* globals, int argc, char** argv) {
   return 0;
 }
 
+
+int ToolConfig(Globals* globals, int argc, char** argv) {
+    printf("now do config\n");
+    LoadConfig* configer = new LoadConfig();
+    configer->Init_LoadConfig(".");
+    return 0;
+}
+    
 /// Find the function to execute for \a tool_name and return it via \a func.
 /// If there is no tool to run (e.g.: unknown tool), returns an exit code.
 int ChooseTool(const string& tool_name, const Tool** tool_out) {
@@ -555,6 +565,8 @@ int ChooseTool(const string& tool_name, const Tool** tool_out) {
       Tool::RUN_AFTER_LOAD, ToolRules },
     { "targets",  "list targets by their rule or depth in the DAG",
       Tool::RUN_AFTER_LOAD, ToolTargets },
+    { "config", "give me a default build.ninja config file by default",
+      Tool::RUN_AFTER_FLAGS, ToolConfig},
     { "urtle", NULL,
       Tool::RUN_AFTER_FLAGS, ToolUrtle },
     { NULL, NULL, Tool::RUN_AFTER_FLAGS, NULL }
@@ -811,8 +823,9 @@ int NinjaMain(int argc, char** argv) {
       return exit_code;
   }
 
-  if (tool && tool->when == Tool::RUN_AFTER_FLAGS)
+  if (tool && tool->when == Tool::RUN_AFTER_FLAGS) {
     return tool->func(&globals, argc, argv);
+  }
 
   if (working_dir) {
     // The formatting of this string, complete with funny quotes, is

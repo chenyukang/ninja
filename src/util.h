@@ -69,6 +69,9 @@ double GetLoadAverage();
 /// exceeds @a width.
 string ElideMiddle(const string& str, size_t width);
 
+string Skip_begin_space(const string& str);
+int     Have_main_func(const string& str);
+
 #ifdef _MSC_VER
 #define snprintf _snprintf
 #define fileno _fileno
