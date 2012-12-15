@@ -14,6 +14,8 @@ TAGS
 /doc/manual.html
 /doc/doxygen
 /gtest-1.6.0
+/gtest/.ninja_log
+*.gch
 
 # Eclipse project files
 .project
