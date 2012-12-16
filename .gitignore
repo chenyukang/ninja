@@ -20,4 +20,7 @@ TAGS
 # Eclipse project files
 .project
 .cproject
+.ninja_log
+*.o
+*.o.d
 
