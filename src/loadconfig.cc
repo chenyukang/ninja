@@ -163,19 +163,21 @@ int LoadConfig::Write_config_file() {
     out += "INCDIR = ./ \n";
     
     out += "\nrule C_RULE \n command = $C_COMPILER $FLAGS -I$INCDIR -MMD -MF $out.d -o $out -c $in\n";
-    out += "   description = Building C object $out";
+    out += "   description = Building C object $out\n";
+    out += "   depfile = $out.d\n";
 
     out += "\nrule CC_RULE \n command = $CC_COMPILER $FLAGS -I$INCDIR -MMD -MF $out.d -o $out -c $in\n";
-    out += "   description = Building CXX object $out";
+    out += "   description = Building CXX object $out\n";
+    out += "   depfile = $out.d\n";
 
     out += "\nrule C_LINK_RULE \n command = $C_COMPILER $FLAGS $EXE_LINK_LIB $in -o $out\n";
-    out += "   description = Linking C object $out";
+    out += "   description = Linking C object $out\n";
 
     out += "\nrule CC_LINK_RULE \n command = $CC_COMPILER $FLAGS $EXE_LINK_LIB $in -o $out\n";
-    out += "   description = Linking CXX object $out";
+    out += "   description = Linking CXX object $out\n";
 
     out += "\nrule AR_RULE\n command = ar cr $out $in \n";
-    out += "   description = AR Library $out";
+    out += "   description = AR Library $out\n";
 
     out += "\nrule CLEAN_RULE\n command = rm -rf ./obj/*\n";
         
