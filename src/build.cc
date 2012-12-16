@@ -835,3 +835,4 @@ void Builder::FinishEdge(Edge* edge, bool success, const string& output) {
     scan_.build_log()->RecordCommand(edge, start_time, end_time, restat_mtime);
 }
 
+

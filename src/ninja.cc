@@ -535,7 +535,6 @@ int ToolUrtle(Globals* globals, int argc, char** argv) {
 
 
 int ToolConfig(Globals* globals, int argc, char** argv) {
-    printf("now do config\n");
     LoadConfig* configer = new LoadConfig();
     configer->Init_LoadConfig(".");
     return 0;

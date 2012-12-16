@@ -103,12 +103,6 @@ bool CanonicalizePath(char* path, size_t* len, string* err) {
     *err = "empty path";
     return false;
   }
-
-  if(strcmp(path, "./bitmap.c") == 0) {
-      printf("now : %s\n", path);
-  }
-  
-
   const int kMaxPathComponents = 30;
   char* components[kMaxPathComponents];
   int component_count = 0;
