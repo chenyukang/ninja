@@ -199,49 +199,53 @@ int LoadConfig::Write_config_file() {
         }
     }
 
-    out += "\nbuild obj/liball.a : AR_RULE ";
-    string line;
-    int newline = 0;
-    for(vector<string>::iterator iter = objs.begin(); iter != objs.end(); ++iter) {
-        if(line.length() != 0) line += " ";
-        line += (*iter);
-        if(line.length() > 20) {
-            if(newline)
-                line = "                 " + line;
-            line += " $\n";
-            out += line;
-            line = "";
-            newline = 1;
+    bool add_liball = false;
+    if(objs.size() > 0) {
+        add_liball = true;
+        out += "\nbuild obj/liball.a : AR_RULE ";
+        string line;
+        int newline = 0;
+        for(vector<string>::iterator iter = objs.begin(); iter != objs.end(); ++iter) {
+            if(line.length() != 0) line += " ";
+            line += (*iter);
+            if(line.length() > 20) {
+                if(newline)
+                    line = "                 " + line;
+                line += " $\n";
+                out += line;
+                line = "";
+                newline = 1;
+            }
         }
+        if(newline)
+            line = "                 " + line;
+        out += line;
     }
-    if(newline)
-        line = "                 " + line;
-    out += line;
 
     out += "\n\n#############################################\n";
     out += "# The main all target.";
 
     vector<string> exes;
+    string liball_str = add_liball ? "obj/liball.a " : " ";
     for(vector<SourceFile>::iterator iter = files.begin();
         iter != files.end(); ++iter) {
         string exe = Get_obj_name(iter->path, ".exe");
         if(iter->type == CMAIN) {
             exes.push_back(exe);
-            out += "\nbuild " + exe + " :  C_LINK_RULE obj/liball.a " + iter->path;
+            out += "\nbuild " + exe + " :  C_LINK_RULE " + liball_str  + iter->path;
         }
         else if(iter->type == CCMAIN) {
             exes.push_back(exe);
-            out += "\nbuild " + exe + " : CC_LINK_RULE obj/liball.a " + iter->path;
+            out += "\nbuild " + exe + " : CC_LINK_RULE " + liball_str + iter->path;
         }
     }
 
-    out += string("\nbuild all: phony  ")  + "obj/liball.a";
+    out += string("\nbuild all: phony  ")  + liball_str;
     for(vector<string>::iterator iter = exes.begin(); iter != exes.end(); ++iter) {
         out += " " + *iter + " ";
     }
     out += "\n";
     
-
     out += "\n#############################################\n";
     out += "# Make the all target the default.\ndefault all\n";
 

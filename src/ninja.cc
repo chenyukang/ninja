@@ -42,6 +42,7 @@
 #include "state.h"
 #include "util.h"
 #include "loadconfig.h"
+#include <iostream>
 
 // Defined in msvc_helper_main-win32.cc.
 int MSVCHelperMain(int argc, char** argv);
@@ -216,6 +217,11 @@ Node* CollectTarget(State* state, const char* cpath, string* err) {
 
 bool CollectTargetsFromArgs(State* state, int argc, char* argv[],
                             vector<Node*>* targets, string* err) {
+
+  printf("argc: %d\n", argc);
+  for(int k=0; k<argc; k++) {
+        printf("argv: %s\n", argv[k]);
+  }
   if (argc == 0) {
     *targets = state->DefaultNodes(err);
     return err->empty();
