@@ -23,4 +23,5 @@ TAGS
 .ninja_log
 *.o
 *.o.d
+GR*
 
