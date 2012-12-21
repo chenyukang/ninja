@@ -22,10 +22,10 @@ public:
     FileType type;
 };
 
-class LoadConfig {
+class ConfigGenerator {
     
 public:
-    LoadConfig() {}
+    ConfigGenerator() {}
     int Init_LoadConfig(std::string path);
     int Fresh_LoadConfig(std::string path);
 

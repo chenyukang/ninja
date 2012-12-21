@@ -55,14 +55,14 @@ build $builddir/metrics.o: cxx src/metrics.cc
 build $builddir/state.o: cxx src/state.cc
 build $builddir/util.o: cxx src/util.cc
 build $builddir/subprocess-posix.o: cxx src/subprocess-posix.cc
-build $builddir/loadconfig.o: cxx src/loadconfig.cc
+build $builddir/buildconfig_generator.o: cxx src/buildconfig_generator.cc
 build $builddir/libninja.a: ar $builddir/browse.o $builddir/build.o $
     $builddir/build_log.o $builddir/clean.o $builddir/depfile_parser.o $
     $builddir/disk_interface.o $builddir/edit_distance.o $
     $builddir/eval_env.o $builddir/explain.o $builddir/graph.o $
     $builddir/graphviz.o $builddir/lexer.o $builddir/manifest_parser.o $
     $builddir/metrics.o $builddir/state.o $builddir/util.o $
-    $builddir/subprocess-posix.o $builddir/loadconfig.o
+    $builddir/subprocess-posix.o $builddir/buildconfig_generator.o
 
 # Main executable is library plus main() function.
 build $builddir/ninja.o: cxx src/ninja.cc
