@@ -41,7 +41,7 @@
 #include "metrics.h"
 #include "state.h"
 #include "util.h"
-#include "loadconfig.h"
+#include "buildconfig_generator.h"
 #include <iostream>
 
 // Defined in msvc_helper_main-win32.cc.
@@ -541,7 +541,7 @@ int ToolUrtle(Globals* globals, int argc, char** argv) {
 
 
 int ToolConfig(Globals* globals, int argc, char** argv) {
-    LoadConfig* configer = new LoadConfig();
+    ConfigGenerator* configer = new ConfigGenerator();
     configer->Init_LoadConfig(".");
     return 0;
 }
